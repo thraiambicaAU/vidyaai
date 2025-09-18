@@ -4,6 +4,7 @@ import { QuickStats } from "@/components/QuickStats";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import { 
   BookOpen, 
   FileText, 
@@ -16,11 +17,21 @@ import {
   Cloud, 
   ClipboardList,
   BarChart3,
-  Sparkles
+  Sparkles,
+  LogOut
 } from "lucide-react";
 
 const Index = () => {
+  const { signOut, profile } = useAuth();
   const { toast } = useToast();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const handleFeatureClick = (featureName: string) => {
     toast({
@@ -104,7 +115,25 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      <div className="flex justify-between items-center p-4">
+        <Header />
+        <div className="flex items-center gap-4">
+          {profile && (
+            <span className="text-sm text-muted-foreground">
+              Welcome, {profile.full_name || 'Teacher'}
+            </span>
+          )}
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleSignOut}
+            className="gap-2"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign Out
+          </Button>
+        </div>
+      </div>
       
       <main className="container mx-auto px-4 py-6 space-y-8">
         {/* Welcome Section */}

@@ -14,7 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          class_section: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          grade_levels: string[] | null
+          id: string
+          role: Database["public"]["Enums"]["user_role"] | null
+          school_name: string | null
+          subject_areas: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          class_section?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          grade_levels?: string[] | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          school_name?: string | null
+          subject_areas?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          class_section?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          grade_levels?: string[] | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          school_name?: string | null
+          subject_areas?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +64,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      user_role: "teacher" | "student"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +191,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["teacher", "student"],
+    },
   },
 } as const
